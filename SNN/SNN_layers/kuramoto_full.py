@@ -1,4 +1,4 @@
-# skipDHSRNN/SNN_layers/kuramoto.py
+# SNN_layers/kuramoto.py
 import torch
 import torch.nn as nn
 import math
