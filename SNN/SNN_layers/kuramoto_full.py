@@ -32,7 +32,7 @@ class SakaguchiKuramoto(nn.Module):
         theta_j = theta_prev.unsqueeze(1)       # [B, 1, N]
 
         #  (θ_j - θ_i - α_ij)
-        phase_diff = theta_j - theta_i - self.alpha   # broadcast 到 [B, N, N]
+        phase_diff = theta_j - theta_i - self.alpha   # broadcast to [B, N, N]
 
         # coupling 
         coupling = (self.K / self.N) * torch.sum(torch.sin(phase_diff), dim=-1)  # [B, N]
