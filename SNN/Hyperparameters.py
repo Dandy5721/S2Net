@@ -55,7 +55,7 @@ parser.add_argument('--low_n', default=0, type=int, metavar='N', help='SNN low_n
 parser.add_argument('--high_n', default=4, type=int, metavar='N', help='SNN high_n')
 parser.add_argument('--branch', default=1, type=int, metavar='N', help='SNN branch')
 
-# Other existing params 
+# Other params 
 # parser.add_argument('--dataset', default='HCPYA', type=str, metavar='N', help='dataset name')
 parser.add_argument('--algo', default='SRNN', type=str, metavar='N', help='algorithm')
 parser.add_argument('--thresh', default=0.5, type=float, metavar='N', help='threshold')
