@@ -1,8 +1,6 @@
-# 忽略 Python 缓存
 __pycache__/
 *.py[cod]
 
-# 忽略数据集和数据路径
 data/
 dataset/
 *.mat
@@ -11,17 +9,14 @@ dataset/
 *.csv
 *.xlsx
 
-# 忽略训练好的模型权重 (体积太大，通常不传，除非很小)
 *.pth
 *.pt
 *.ckpt
 checkpoints/
 exp/
 
-# 忽略系统文件
 .DS_Store
 .vscode/
 .idea/
 
-# 忽略日志
 *.log
