@@ -65,7 +65,7 @@ class GraphOTKuramoto(nn.Module):
         self.alpha = nn.Parameter(torch.zeros(N, N))
 
         #  κ_i
-        self.log_kappa = nn.Parameter(torch.zeros(N))  # softplus→正
+        self.log_kappa = nn.Parameter(torch.zeros(N))  # softplus
 
     def _reduce_adj(self, A_full):
 
@@ -106,7 +106,7 @@ class GraphOTKuramoto(nn.Module):
         row_sum = W.sum(dim=-1, keepdim=True)  # [B,N,1]
         W = torch.where(row_sum > eps, W / (row_sum + eps),
                         torch.full_like(W, 1.0 / self.N))
-        C = -torch.log(W + eps)   # 大边权 → 小 cost
+        C = -torch.log(W + eps)   #  cost
         return C
 
     # ---------- Sinkhorn OT ----------
@@ -149,7 +149,7 @@ class GraphOTKuramoto(nn.Module):
         C = self._build_cost(A_latent)                   # [B, N, N]
 
         p = torch.softmax(gamma, dim=-1)                 # [B,N]
-        q = torch.full_like(p, 1.0 / self.N)             # uniform 目标，简单稳定
+        q = torch.full_like(p, 1.0 / self.N)             # uniform 
 
         pi = self._sinkhorn(p, q, C)                     # [B,N,N]
 
