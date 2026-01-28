@@ -17,7 +17,7 @@ S²-Net models cognitive dynamics from fMRI BOLD signals by simulating the inter
         $$\dot{\theta}_i^d(t) = \omega_i^d + \kappa_i^d \sin(\gamma_i(t) - \theta_i^d(t)) + \frac{K}{N} \sum_{j} A_{ij} \sin(\theta_j^d(t) - \theta_i^d(t) - \alpha_{ij}(t))$$
 
 2.  **Interaction Mechanism (Phase Gating):**
-    * Introduces a learnable time delay $\tau$ to generate a gating signal $g_i(t)$ from the oscillatory phase:
+    * Introduces a predefined time delay $\tau$ to generate a gating signal $g_i(t)$ from the oscillatory phase:
         $$g_i(t) = \sigma_{\text{gate}}(\sin(\theta_i(t - \tau)))$$
     * This mechanism selectively activates specific phase patterns, dynamically grouping spiking neurons via traveling waves.
 
