@@ -317,7 +317,6 @@ class BoldSequenceDatasetOneLabelSC(Dataset):
     def _normalize_sc(sc_np: np.ndarray) -> torch.Tensor:
         """
         sc_np: [N_sc, N_sc] numpy array
-        返回: row-normalized 的 torch.FloatTensor
         """
         sc = np.array(sc_np, dtype=np.float32)
         row_sums = sc.sum(axis=1, keepdims=True)  # [N_sc,1]
@@ -349,7 +348,6 @@ class BoldSequenceDatasetOneLabelSC(Dataset):
         sc_data = scipy.io.loadmat(sc_file_path)
         key = "aal116_sift_radius2_count_connectivity"
         if key not in sc_data:
-            # 字段不存在，fallback
             return self.fallback_sc.clone()
 
         sc_np = sc_data[key]
