@@ -5,7 +5,7 @@
 This repository contains the official PyTorch implementation of **S²-Net**, a brain-inspired framework that integrates **Top-Down Neural Oscillatory Synchronization** with **Bottom-Up Rhythm-Modulated Spiking Neural Networks**.
 
 
-## 🧠 Model Architecture & Methodology
+## Model Architecture & Methodology
 
 S²-Net models cognitive dynamics from fMRI BOLD signals by simulating the interaction between macroscopic oscillations and microscopic neuronal firing.
 
@@ -31,7 +31,7 @@ S²-Net models cognitive dynamics from fMRI BOLD signals by simulating the inter
 
 
 
-## 📂 Repository Structure
+## Repository Structure
 
 The codebase is organized to separate core dynamical models from task-specific implementations:
 
@@ -59,7 +59,7 @@ S2Net/
 └── train_s2net_dyn.py       # [Experiment 4] Dynamic State Recognition (HCP-WM)
 ```
 
-## 🚀 Usage Instructions
+## Usage Instructions
 
 ## 1. Proof-of-Concept Simulation
 Reproduce the "Binding-by-Synchrony" and "Segregation-by-Desynchrony" experiments on synthetic data (Disjoint Squares). This script validates the core physics without external data.
@@ -102,7 +102,7 @@ python train_s2net_dyn.py \
 ```
 
 
-## ⚙️ Configuration
+## Configuration
 Key hyperparameters are managed in SNN/Hyperparameters.py. 
 You can override them via command line arguments:
 
