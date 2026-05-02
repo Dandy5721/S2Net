@@ -1,6 +1,6 @@
 # S²-Net: Synchronized Spiking Neural Network (Anonymous)
 
-**[Supplementary Code for ICML 2026 Submission]**
+**[Code for NeurIPS 2026 Submission]**
 
 This repository contains the official PyTorch implementation of **S²-Net**, a brain-inspired framework that integrates **Top-Down Neural Oscillatory Synchronization** with **Bottom-Up Rhythm-Modulated Spiking Neural Networks**.
 
