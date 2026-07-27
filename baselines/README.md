@@ -1,10 +1,5 @@
 # Baselines (paper Table comparisons)
 
-Neuroimaging (BOLD) training scripts for every baseline compared against S²-Net,
-organized to be self-contained: each `main_bold-<method>.py` uses a model package
-in this directory plus the shared `tools/` library. Imports resolve when run from
-this `baselines/` directory.
-
 ## Baseline → script → model class
 
 | Paper baseline | Base script | Base model (package) | Rhythm-gated ("skip") script | Rhythm model (package) |
