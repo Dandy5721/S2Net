@@ -43,9 +43,6 @@ Optimizer is Adam with `StepLR(step_size=100, gamma=0.75)` throughout.
 | DH-SNN | `main_bold-DHSRNN.py` | 1e-2 | 16 | 500 | 1024 |
 | Rhythm-SNN | `main_bold-skip*.py` (rhythm-gated variants) | 1e-2 | 16 | 500 | 1024 |
 
-The hidden dimension is the recurrent width `--fc[0]`; the fixed 116→64 input
-projection (`proj_dim=64`) is unchanged. These settings match the parameter
-counts reported in Table 7 (e.g. SRNN/ASRNN ≈ 4.5 MB ≈ a 1024×1024 recurrent).
 
 ## Running
 
