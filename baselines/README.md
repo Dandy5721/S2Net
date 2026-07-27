@@ -1,4 +1,4 @@
-# Baselines (paper Table comparisons)
+# Baselines 
 
 ## Baseline → script → model class
 
@@ -28,7 +28,7 @@ baselines/
   main_bold-*.py              (10 training scripts, one per baseline/variant)
 ```
 
-## Hyperparameter settings (paper Table 6)
+## Hyperparameter settings
 
 Defaults in each package's `Hyperparameters.py` reproduce Table 6 of the paper.
 All baselines use a **hidden dimension of 1024** (`--fc 1024`); only S²-Net uses 64.
