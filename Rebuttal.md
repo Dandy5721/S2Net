@@ -200,7 +200,7 @@ The trained network avoids global phase lock-in (`order_R` drops to 0.20–0.35,
 [2] Muller, L., Chavane, F., Reynolds, J., & Sejnowski, T. J. (2018). Cortical travelling waves: mechanisms and computational principles. *Nature Reviews Neuroscience*, 19(5), 255–268. https://doi.org/10.1038/nrn.2018.20
 *(General neuroscience motivation; cited in response to Reviewer 4HKM's missing-references point 3a/3b.)*
 
-[3] Locatello, F., Weissenborn, D., Unterthiner, T., Mahendran, A., Heigold, G., Uszkoreit, J., Dosovitskiy, A., & Kipf, T. (2020). Object-Centric Learning with Slot Attention. *NeurIPS 2020*.
+[3] Locatello, F., Weissenborn, D., Unterthiner, T., Mahendran, A., Heigold, G., Uszkoreit, J., Dosovitskiy, A., & Kipf, T. (2021). Object-Centric Learning with Slot Attention. *NeurIPS 2021*.
 *(Related-work citation requested by Reviewer 4HKM, point 3a/3b; not tied to a specific table above.)*
 
 [4] Löwe, S., Lippe, P., Rudolph, M., & Welling, M. (2022). Complex-Valued Autoencoders for Object Discovery. *Transactions on Machine Learning Research (TMLR)*. arXiv:2204.02075
@@ -230,7 +230,7 @@ The trained network avoids global phase lock-in (`order_R` drops to 0.20–0.35,
 [12] Oberauer, K., & Awh, E. (2022). Is There an Activity-silent Working Memory? *Journal of Cognitive Neuroscience*, 34(12), 2360–2374.
 *(Neuroscientific grounding for Eq. 6's down-state gating design; Reviewer 4HKM, Question on Eq. 6, A10.)*
 
-[13] Dalla Porta, L., et al. (2024). H-current modulation of cortical Up and Down states. *bioRxiv* preprint (published in *The Journal of Physiology*, 2025).
+[13] Dalla Porta, L., et al. (2025). H-current modulation of cortical Up and Down states. *The Journal of Physiology*, 603(8), 2409–2424.
 *(Neuroscientific grounding for Eq. 6's down-state gating design; Reviewer 4HKM, Question on Eq. 6, A10.)*
 
 [14] Camassa, A., et al. (2022). Deterministic and Stochastic Components of Cortical Down States: Dynamics and Modulation. *Journal of Neuroscience*, 42(50), 9387–9400.
@@ -245,5 +245,5 @@ The trained network avoids global phase lock-in (`order_R` drops to 0.20–0.35,
 [17] Harikrishnan N. B., & Nagaraj, N. (2021). When Noise meets Chaos: Stochastic Resonance in Neurochaos Learning. *Neural Networks*, 143, 425–435.
 *(Baseline "SR-Net" in Table 7.)*
 
-[18] Gu, A., & Dao, T. (2024). Mamba: Linear-Time Sequence Modeling with Selective State Spaces. *COLM 2024* (arXiv:2312.00752, 2023).
+[18] Gu, A., & Dao, T. (2024). Mamba: Linear-Time Sequence Modeling with Selective State Spaces. *COLM 2024* (https://openreview.net/forum?id=tEYskw1VY2).
 *(Baseline "Mamba" in Table 7.)*
