@@ -188,7 +188,7 @@ Validation of our refined representational hypothesis, i.e.,  **structured, obje
 | Trained, 2 objects | **0.35** | **0.85** | **0.15** | 0.04 | ~19 |
 | Trained, 4 objects | **0.20** | **0.82** | **0.08** | 0.03 | ~12 |
 
-The trained network avoids global phase lock-in (`order_R` drops to 0.20–0.35, vs. $\sim$1.00 untrained) while maintaining tight internal binding (`within_sync` > 0.80) and strict external segregation (`between_sync` < 0.15); phase organizes at the object's physical scale (wavelength tracks object size, $\sim$19px for 2 objects vs. $\sim$12px for 4 objects). Directional consistency remains near the random-phase baseline ($\sim$0.03–0.04) in both trained conditions, confirming that coherent global traveling waves are not a general property of the trained model, supporting local, object-scale phase organization over a global-synchrony account.
+The trained network avoids global phase lock-in (`order_R` drops to 0.20–0.35, vs. ～1.00 untrained) while maintaining tight internal binding (`within_sync` > 0.80) and strict external segregation (`between_sync` < 0.15); phase organizes at the object's physical scale (wavelength tracks object size, ～19px for 2 objects vs. ～12px for 4 objects). Directional consistency remains near the random-phase baseline (～0.03–0.04) in both trained conditions, confirming that coherent global traveling waves are not a general property of the trained model, supporting local, object-scale phase organization over a global-synchrony account.
 
 ---
 
