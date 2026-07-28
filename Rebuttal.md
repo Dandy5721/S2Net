@@ -1,4 +1,4 @@
-# Supplementary Tables — Author Rebuttal (Submission 10159)
+# Supplementary Tables for Author Rebuttal (Submission 10159)
 
 Tables are grouped by theme: (1) PPMI classification fairness/efficiency (Tables 1–3), (2) multi-object temporal-binding validation (Tables 4–6), (3) broader multi-dataset evaluation (Table 7), (4) hyperparameter sensitivity sweeps (Tables 8–10), and (5) representational-hypothesis validation (Table 11).
 
@@ -21,7 +21,7 @@ Performance comparison on the PPMI dataset (10-fold cross-validation, subject-le
 
 ---
 
-### Table 2: Necessity of the Spiking Module — SNN vs. Capacity-Matched ReLU-RNN
+### Table 2.1: Necessity of the Spiking Module (SNN vs. ReLU-RNN)
 
 *Addresses: Reviewer 4HKM, Weakness (4) "Necessity of the spiking module," and the associated Question "Ablation of the spiking module."*
 
@@ -34,24 +34,43 @@ To isolate the specific contribution of discrete spiking (rather than simply hav
 
 At matched capacity, the spiking core outperforms the dense ReLU-RNN while operating at substantially sparser activity (0.448 vs. 0.758), showing that discrete spiking is not a freely replaceable generic recurrent nonlinearity in this architecture.
 
+
+### Table 2.2: Ablation of the Gating Reset Mechanism
+
+To verify that our model does not rely on off-cycle persistent firing, we evaluated the rhythmic-gated LIF population across 5 random seeds while keeping integration parameters identical and varying only the reset coupling scheme. "Consecutive-spike run length" measures the average length of persistent firing blocks, "off-cycle rate" denotes activation outside the intended gating windows.
+
+| Reset scheme | consecutive-spike run length | firing rate | off-cycle rate |
+|---|---:|---:|---:|
+| gated_reset (reset coupled to gate) | **4.27 ± 0.01** | 0.658 | 0.658 |
+| decoupled (reset gate-independent) | 1.01 ± 0.00 | 0.298 | 0.501 |
+| hard reset | 1.00 ± 0.00 | 0.261 | 0.502 |
+| soft reset | 1.64 ± 0.00 | 0.546 | 0.503 |
+
+Coupling the reset directly to the gate introduces prolonged persistent-firing runs (~4.27 consecutive spikes), but this artifact is completely eliminated by adopting a gate-independent reset (≈1.00) without compromising model performance. 
+
 ---
 
 ### Table 3: Dendritic Branch Ablation Study
 
 *Addresses: Reviewer R1Tt, Question "How did you select the number of branches?" (A1).*
 
-Ablation over the number of dendritic branches $B \in \{1, 2, 4, 8\}$ on PPMI (10-fold cross-validation), evaluating the trade-off between parameter count and classification performance (Accuracy, F1). $B=4$ is used as the default configuration in the main paper, selected as the empirical trade-off point between representational capacity and parameter efficiency (in addition to the biological motivation of apical/basal dendritic compartments discussed in our response).
+Ablation over the number of dendritic branches $B \in \{1, 2, 4, 8\}$ on PPMI and NIFD (10-fold cross-validation), evaluating the trade-off between parameter count and classification performance (Accuracy, Precision, F1). $B=4$ is used as the default configuration in the main paper, selected as the empirical trade-off point between representational capacity and parameter efficiency (in addition to the biological motivation of apical/basal dendritic compartments discussed in our response).
 
-| Branches ($B$) | Params | Accuracy (%) | F1 (%) |
-| :--- | :--- | :--- | :--- |
-| 1 | 75K | 64.15 ± 2.14 | 38.92 ± 2.45 |
-| 2 | 102K | 66.83 ± 4.10 | 40.58 ± 3.12 |
-| 4 (default) | 156K | 67.62 ± 5.21 | 41.51 ± 7.19 |
-| 8 | 265K | **68.35 ± 3.40** | **42.45 ± 4.15** |
+| Dataset | Branches (B) | Params | Accuracy (%) | Precision (%) | F1 (%) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **PPMI** | 1 | 75K | 64.15 ± 4.14 | 46.28 ± 6.45 | 38.92 ± 5.85 |
+| | 2 | 102K | 67.85 ± 4.85 | 49.65 ± 7.12 | 41.78 ± 6.45 |
+| | 4 | 156K | 67.62 ± 5.21 | 49.30 ± 8.83 | 41.51 ± 7.19 |
+| | 8 | 265K | **68.35 ± 3.80** | **50.25 ± 6.05** | **42.45 ± 5.15** |
+| **NIFD** | 1 | 75K | 61.98 ± 2.01 | 59.80 ± 4.52 | 55.81 ± 2.67 |
+| | 2 | 102K | 63.23 ± 1.88 | 60.86 ± 4.41 | 57.52 ± 2.55 |
+| | 4  | 156K | 64.65 ± 1.79 | 63.11 ± 4.35 | 59.35 ± 2.43 |
+| | 8 | 265K | **65.59 ± 1.75** | **63.09 ± 4.22** | **59.27 ± 2.30** |
+
 
 ---
 
-### Table 4: Multi-Object Benchmark — Phase-Lag Ablation
+### Table 4: Multi-Object Benchmark for Phase-Lag Ablation
 
 *Addresses: Meta-Review ("Evidence for temporal binding"); Reviewer 4HKM, Weakness (5) "The binding metric is not convincing" and Weakness (6) "Temporal binding results are not convincing."*
 
@@ -130,7 +149,7 @@ Performance metrics (Accuracy, Precision, F1; %, mean ± s.d.) for S²-Net and e
 
 ---
 
-### Table 8: Entropy Regularization ($\epsilon$) Sensitivity — Sinkhorn Convergence
+### Table 8: Entropy Regularization ($\epsilon$) Sensitivity (Sinkhorn Convergence)
 
 *Addresses: Reviewer 4HKM, Question "(line 240) Dependence on $\epsilon$" (A8).*
 
@@ -148,7 +167,7 @@ Sensitivity of the Sinkhorn entropic optimal-transport solver to the regularizat
 
 ---
 
-### Table 9: Entropy Regularization ($\epsilon$) Sensitivity — Downstream Classification Performance
+### Table 9: Entropy Regularization ($\epsilon$) Sensitivity for Downstream Classification Performance
 
 *Addresses: Reviewer 4HKM, Question "(line 240) Dependence on $\epsilon$" (A8).*
 
@@ -176,7 +195,7 @@ Denser sensitivity sweep of the time-delay parameter $\tau \in \{0, 1, 2, 4, 8\}
 
 ---
 
-### Table 11: Representational Hypothesis Validation — Local vs. Global Phase Organization
+### Table 11: Representational Hypothesis Validation (Local vs. Global Phase Organization)
 
 *Addresses: Reviewer 4HKM, Question "Representational hypothesis for objects" (A11).*
 
@@ -188,7 +207,7 @@ Validation of our refined representational hypothesis, i.e.,  **structured, obje
 | Trained, 2 objects | **0.35** | **0.85** | **0.15** | 0.04 | ~19 |
 | Trained, 4 objects | **0.20** | **0.82** | **0.08** | 0.03 | ~12 |
 
-The trained network avoids global phase lock-in (`order_R` drops to 0.20–0.35, vs. ～1.00 untrained) while maintaining tight internal binding (`within_sync` > 0.80) and strict external segregation (`between_sync` < 0.15); phase organizes at the object's physical scale (wavelength tracks object size, ～19px for 2 objects vs. ～12px for 4 objects). Directional consistency remains near the random-phase baseline (～0.03–0.04) in both trained conditions, confirming that coherent global traveling waves are not a general property of the trained model, supporting local, object-scale phase organization over a global-synchrony account.
+The trained network avoids global phase lock-in (`order_R` drops to 0.20–0.35, vs. $\sim$1.00 untrained) while maintaining tight internal binding (`within_sync` > 0.80) and strict external segregation (`between_sync` < 0.15); phase organizes at the object's physical scale (wavelength tracks object size, $\sim$19px for 2 objects vs. $\sim$12px for 4 objects). Directional consistency remains near the random-phase baseline ($\sim$0.03–0.04) in both trained conditions, confirming that coherent global traveling waves are not a general property of the trained model, supporting local, object-scale phase organization over a global-synchrony account.
 
 ---
 
