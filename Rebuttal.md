@@ -149,13 +149,13 @@ Performance metrics (Accuracy, Precision, F1; %, mean ± s.d.) for S²-Net and e
 
 ---
 
-### Table 8: Entropy Regularization ($\epsilon$) Sensitivity (Sinkhorn Convergence)
+### Table 8: Entropy Regularization ($\varepsilon$) Sensitivity (Sinkhorn Convergence)
 
-*Addresses: Reviewer 4HKM, Question "(line 240) Dependence on $\epsilon$" (A8).*
+*Addresses: Reviewer 4HKM, Question "(line 240) Dependence on $\varepsilon$" (A8).*
 
-Sensitivity of the Sinkhorn entropic optimal-transport solver to the regularization parameter $\epsilon_{\mathrm{OT}}$, swept across seven orders of magnitude. $H(P)$ is the plan entropy; "effective support" is the fraction of the transport plan's mass spread across non-negligible entries; "top-1% mass" is the fraction of total transport mass concentrated in the top 1% of plan entries; "marginal error" is the residual deviation from the target marginal constraints. For $\epsilon < 0.03$, Sinkhorn iterations fail to converge (degenerate, near-zero entropy, marginal error ≈ 1.0). At $\epsilon \ge 0.1$ (our default), the solver is in a stable, high-entropy, fully convergent regime.
+Sensitivity of the Sinkhorn entropic optimal-transport solver to the regularization parameter $\varepsilon_{\mathrm{OT}}$, swept across seven orders of magnitude. $H(P)$ is the plan entropy; "effective support" is the fraction of the transport plan's mass spread across non-negligible entries; "top-1% mass" is the fraction of total transport mass concentrated in the top 1% of plan entries; "marginal error" is the residual deviation from the target marginal constraints. For $\varepsilon < 0.03$, Sinkhorn iterations fail to converge (degenerate, near-zero entropy, marginal error ≈ 1.0). At $\varepsilon \ge 0.1$ (our default), the solver is in a stable, high-entropy, fully convergent regime.
 
-| $\epsilon_{\mathrm{OT}}$ | Plan entropy $H(P)$ | Effective support | Top-1% mass | Marginal error |
+| $\varepsilon_{\mathrm{OT}}$ | Plan entropy $H(P)$ | Effective support | Top-1% mass | Marginal error |
 | :--- | :--- | :--- | :--- | :--- |
 | 10⁻³ | 0.00 | 10⁻⁴ | 0.00 | 1.000 |
 | 3×10⁻³ | 0.00 | 10⁻⁴ | 0.00 | 1.000 |
@@ -167,13 +167,13 @@ Sensitivity of the Sinkhorn entropic optimal-transport solver to the regularizat
 
 ---
 
-### Table 9: Entropy Regularization ($\epsilon$) Sensitivity for Downstream Classification Performance
+### Table 9: Entropy Regularization ($\varepsilon$) Sensitivity for Downstream Classification Performance
 
-*Addresses: Reviewer 4HKM, Question "(line 240) Dependence on $\epsilon$" (A8).*
+*Addresses: Reviewer 4HKM, Question "(line 240) Dependence on $\varepsilon$" (A8).*
 
-Impact of the entropy regularization parameter $\epsilon$ on downstream PPMI classification performance (Accuracy, F1; 10-fold cross-validation), restricted to the convergent regime identified in Table 8. This demonstrates that, once past the convergence threshold, $\epsilon$ is not a fragile, tightly-tuned hyperparameter, performance is stable across an order of magnitude, and the default $\epsilon = 10^{-1}$ is near-optimal.
+Impact of the entropy regularization parameter $\varepsilon$ on downstream PPMI classification performance (Accuracy, F1; 10-fold cross-validation), restricted to the convergent regime identified in Table 8. This demonstrates that, once past the convergence threshold, $\varepsilon$ is not a fragile, tightly-tuned hyperparameter, performance is stable across an order of magnitude, and the default $\varepsilon = 10^{-1}$ is near-optimal.
 
-| $\epsilon$ | Accuracy (%) | F1 (%) |
+| $\varepsilon$ | Accuracy (%) | F1 (%) |
 | :--- | :--- | :--- |
 | $10^{-3}$ | 66.85 ± 3.42 | 40.85 ± 5.12 |
 | $10^{-2}$ | 67.12 ± 4.10 | 41.20 ± 6.05 |
