@@ -1,7 +1,5 @@
 # S²-Net: Spiking-by-Synchronization Neural Network
 
-Official PyTorch implementation of the NeurIPS 2026 paper:
-
 **From Cortical Synchronous Rhythm to Brain-Inspired Learning Architecture: An Oscillatory Spiking Neural Network with Time-Delayed Coordination**
 
 Tingting Dan, Guorong Wu  
