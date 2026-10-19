@@ -1,35 +1,54 @@
-# S²-Net: Synchronized Spiking Neural Network (Anonymous)
+# S²-Net: Spiking-by-Synchronization Neural Network
 
-**[Code for NeurIPS 2026 Submission]**
+Official PyTorch implementation of the NeurIPS 2026 paper:
 
-This repository contains the official PyTorch implementation of **S²-Net**, a brain-inspired framework that integrates **Top-Down Neural Oscillatory Synchronization** with **Bottom-Up Rhythm-Modulated Spiking Neural Networks**.
+**From Cortical Synchronous Rhythm to Brain-Inspired Learning Architecture: An Oscillatory Spiking Neural Network with Time-Delayed Coordination**
 
+Tingting Dan, Guorong Wu  
+University of North Carolina at Chapel Hill
 
-## Model Architecture & Methodology
+[[Paper (OpenReview)]](https://openreview.net/forum?id=aAslvH1QJK)
 
-S²-Net models cognitive dynamics from fMRI BOLD signals by simulating the interaction between macroscopic oscillations and microscopic neuronal firing.
+S²-Net is a brain-inspired architecture in which a graph-constrained Sakaguchi–Kuramoto oscillator layer rhythmically gates a population of dendritic spiking neurons through time-delayed phases.
 
-**Core Components:**
+## Citation
 
-1.  **Top-Down Pathway (Vector Kuramoto):**
-    * Models macroscopic brain dynamics using Vector-valued Sakaguchi-Kuramoto dynamics.
-    * **Dynamics:** The phase evolution follows the topologically constrained system:
-        $$\dot{\theta}_i^d(t) = \omega_i^d + \kappa_i^d \sin(\gamma_i(t) - \theta_i^d(t)) + \frac{K}{N} \sum_{j} A_{ij} \sin(\theta_j^d(t) - \theta_i^d(t) - \alpha_{ij}(t))$$
+If you find this code useful, please cite:
 
-2.  **Interaction Mechanism (Phase Gating):**
-    * Introduces a predefined time delay $\tau$ to generate a gating signal $g_i(t)$ from the oscillatory phase:
-        $$g_i(t) = \sigma_{\text{gate}}(\sin(\theta_i(t - \tau)))$$
-    * This mechanism selectively activates specific phase patterns, dynamically grouping spiking neurons via traveling waves.
+```bibtex
+@inproceedings{dan2026s2net,
+  title     = {From Cortical Synchronous Rhythm to Brain-Inspired Learning Architecture: An Oscillatory Spiking Neural Network with Time-Delayed Coordination},
+  author    = {Dan, Tingting and Wu, Guorong},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2026}
+}
+```
 
-3.  **Bottom-Up Pathway (Modulated SNN):**
-    * Incorporates dendritic integration where the membrane potential $U_i(t)$ is modulated by the rhythmic gate $g_i(t)$.
-    * **Update Rule:**
-        $$U_i(t) = (1 - g_i(t)) \cdot U_i(t-1) + g_i(t) \cdot V_i(t)$$
+## Model Architecture
 
-4.  **Phase Lag Inference (Optimal Transport):**
-    * Estimates phase lags $\alpha_{ij}(t)$ using entropically regularized Wasserstein Optimal Transport on the graph structure $A$, minimizing the transport cost $C_{ij} \propto 1/(A_{ij} + \epsilon)$.
+Each entity $i$ (e.g., a brain region or an image pixel) is represented by an oscillatory gating unit with a $D$-dimensional phase $\theta_i \in \mathbb{R}^D$ and a dendritic spiking neuron. The entities interact through a connectivity graph $A$ (e.g., structural connectivity).
 
+1.  **Oscillator layer (vector Sakaguchi–Kuramoto)** — `SNN/SNN_layers/vector_kuramoto.py`, class `graphVectorKuramoto`
+    * The input $X(t)$ is projected to a control signal $\gamma(t) \in \mathbb{R}^N$, and the phases evolve as
+        $$\dot{\theta}_i^d = \omega_i^d + \kappa_i^d \sin(\gamma_i(t) - \theta_i^d) + \frac{K}{N} \sum_{j} A_{ij} \sin(\theta_j^d - \theta_i^d - \alpha_{ij}),$$
+      integrated with an Euler step of size `--dt`. $\omega$ and $\kappa$ are learnable.
 
+2.  **Connectivity-derived phase lag**
+    * The lag is not a free parameter. Its magnitude comes from the transport cost $C_{ij} = 1/(A_{ij} + \epsilon)$, min–max normalized to $\tilde{C}_{ij} \in [0,1]$, and its sign from a learnable matrix $W$:
+        $$\alpha_{ij} = \alpha_0 \tanh(W_{ij} - W_{ji})\, \tilde{C}_{ij}.$$
+    * $A$ is symmetrized and $\tanh$ is odd, so $\alpha_{ij} = -\alpha_{ji}$ by construction.
+
+3.  **Rhythmic gating with a time delay** — `models/s2net*.py`
+    * With delay $\tau = 2$ steps, the gate is computed from the delayed phase averaged over its $D$ components:
+        $$g_i(t) = \tfrac{1}{2}\left(1 + \sin\bar{\theta}_i(t-\tau)\right), \qquad \bar{\theta}_i = \tfrac{1}{D}\textstyle\sum_d \theta_i^d.$$
+    * The spiking layer receives the gated phase features $g_i(t)\,\sin\theta_i(t)$ (projected from $D$ to 1), and a gate mask $m(t) = \mathrm{sigmoid}(W_g\, g(t) + b_g)$.
+
+4.  **Rhythm-modulated dendritic spiking layer** — `SNN/SNN_layers/spike_rnn.py`, class `Rhy_spike_rnn_test_denri_wotanh_new`
+    * Each neuron has $B$ dendritic branches with learnable decay rates; the branch currents are summed into $I_i(t)$.
+    * The membrane state uses a soft reset that does not depend on the gate, and the gate mask scales the emitted spikes:
+        $$U_i(t) = \rho_i U_i(t-1) + (1-\rho_i) I_i(t) - \vartheta\, \delta_i(t-1), \qquad \delta_i(t) = \mathrm{H}(U_i(t) - \vartheta)\, m_i(t),$$
+      with $\rho_i = \mathrm{sigmoid}(\tau_{m,i})$, threshold $\vartheta = 0.5$, and a surrogate gradient for the Heaviside function $\mathrm{H}$.
+    * A spiking readout layer maps the spikes to task outputs.
 
 ## Repository Structure
 
@@ -38,14 +57,17 @@ The codebase is organized to separate core dynamical models from task-specific i
 ```text
 S2Net/
 ├── models/                  # [S²-Net Architectures] Task-specific model variants
+│   ├── layers.py            # Wrappers for the oscillator layer and the spiking core
 │   ├── s2net.py             # Standard S²-Net for Sequence Labeling (Eq. 2-6)
 │   ├── s2net_cls.py         # S²-Net Classifier with Temporal Pooling (Subject Classification)
 │   └── s2net_recon.py       # S²-Net Autoencoder (Self-Supervised Reconstruction)
 │
 ├── SNN/                     # [Core Dynamics] Neural dynamics & Kuramoto layers
 │   ├── SNN_layers/
-│   │   └── vector_kuramoto.p  # Graph-aware Vector Kuramoto with OT phase lag (Eq. 2)
-│   ├── spiking_model.py          # Rhythm-modulated Spiking Neural Network (Eq. 6)
+│   │   ├── vector_kuramoto.py   # Vector Sakaguchi-Kuramoto with connectivity-derived phase lag (graphVectorKuramoto)
+│   │   ├── spike_rnn.py         # Rhythm-modulated dendritic spiking layer
+│   │   └── spike_neuron.py      # Neuron update and surrogate gradient
+│   ├── spiking_model.py          # Spiking network definitions and readout layer
 │   └── Hyperparameters.py        # Centralized configuration management
 │
 ├── utils/                   # [Utilities] Data handling & Evaluation
