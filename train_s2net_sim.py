@@ -15,6 +15,7 @@ if "--data_root" not in sys.argv:
     ])
 
 # ================= 1. CONFIG =================
+# We use grid search to find the optimal parameters
 CONFIG = {
     "batch_size": 16,
     "epochs": 100,
