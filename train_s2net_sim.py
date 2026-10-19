@@ -34,7 +34,6 @@ CONFIG = {
     "noise_std": 0.05,
     "num_workers": 0
 }
-#We use grid search to find the optimal parameters#We use grid search to find the optimal parameters. We will release the best parameters after acceptance.
 def resolve_device(dev_str: str):
     if dev_str == "cuda":
         return torch.device("cuda" if torch.cuda.is_available() else "cpu")
